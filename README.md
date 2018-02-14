@@ -59,9 +59,9 @@ Content-Type: application/json
 GET /payment-objects/?ticket=12345 HTTP/1.1
 ```
 
-Se obtiene la información acerca del **saldo disponible** consultando por el número de tiquet (código reutilizable). En el ejemplo, se piden los datos relacionados con el número de tiquet introducido por teléfono, en este caso, 12345. También en este caso se pide obtener solo un subconjunto de los campos disponibles en el recurso `payment-objects`:
+Se obtiene la información acerca del **saldo disponible** consultando por el número de tiquet (código reutilizable). En el ejemplo, se piden los datos relacionados con el número de tiquet introducido por teléfono, en este caso, 12345. 
 
-De la información obtenida resulta necesario guardar tanto con el **identificador único de tiquet**, `id` como con el **saldo**, `balance`, para ser usados y para nuevas consultas al API.
+De la información obtenida se debería guardar tanto con el **identificador único de tiquet**, `id` como con el **saldo**, `balance`, para ser usados en nuevas consultas al API.
 
 
 Respuesta: *OK*
@@ -137,7 +137,7 @@ GET /phone-rates/?number_match=962331295&enabled=true HTTP/1.1
 
 Se obtiene la información relacionada con la **tarifa** a aplicar para el número marcado.
 
-De la información obtenida resulta necesario usar los campos relacionados con los **costes de establecimiento** , `setup_fare` y el **coste por minuto**, `per_minute_fare`.
+De la información obtenida se deberían guardar los campos relacionados con los **costes de establecimiento** , `setup_fare` y el **coste por minuto**, `per_minute_fare`.
 
 
 Respuesta: *Ok*
@@ -202,9 +202,9 @@ POST /payment-objects/2398012/locks/ HTTP/1.1
   }
 }
 ```
-Se **bloquea un ticket** frente a nuevas compras, a fin de evitar nuevas compras concurrentes antes de consolidarse el saldo definitivo.
+Se crea un nuevo **bloqueo de tiquet** frente a nuevas compras, a fin de evitar nuevas compras concurrentes antes de consolidarse el saldo definitivo.
 
-Se usa en este caso en el API el identificador de ticket guardado.
+Se usa en este caso en el API el identificador de tiquet que se guardado previamente.
 
 Respuesta: *Ok*
 
@@ -218,7 +218,7 @@ Content-Type: application/json
       "id": "101219",
       "reason": "unconsolidated-balance",
       "time": "2018-01-06T11:57:50Z",
-      "expiration_time": "2018-01-06T23:57:50Z"
+      "expiration_time": "2018-01-06T23:57:50Z",
       // resto de campos
   }
 }
@@ -237,8 +237,8 @@ Content-Type: application/json
       "status": "400",
       "source": { "pointer": "/data/reason" },
       "code": 202,
-      "title": "Ticket already locked for unconsolidated balance",
-      "detail": "The ticket is already locked and cannot be locked again for unconsolidated balance"
+      "title": "Ticket already locked because of unconsolidated balance",
+      "detail": "The ticket is already locked and cannot be locked again because of unconsolidated balance"
     }
  ]
 }
@@ -265,8 +265,7 @@ POST /payment-objects/2398012/operations/ HTTP/1.1
 }
 ```
 
-Se **carga el coste de la llamada** sobre el tiquet, consolidándose el consumo. Simultáneamente el tiquet queda desbloqueado para futuras operaciones:
-
+Se produce el **cargo del coste de la llamada** sobre el tiquet, consolidándose el consumo. Simultáneamente se elimina el bloqueo de tiquet relacionado con consumos no consolidados.
 
 Se usa en este caso en el API el identificador de tiquet guardado.
 
@@ -302,8 +301,8 @@ Content-Type: application/json
       "status": "400",
       "source": { "pointer": "/data/balance" },
       "code": 202,
-      "title": "Could't consolidate balance in ticket",
-      "detail": "Could't consolidate balance in ticket"
+      "title": "Couldn't consolidate balance in ticket",
+      "detail": "..."
     }
  ]
 }
@@ -353,6 +352,27 @@ Content-Type: application/json
   }
 }
 ```
+
+Respuesta: *Imposible crear la entrada en el registro*
+
+```http
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+```
+```javascript
+{
+  "errors": [
+    {
+      "status": "400",
+      "source": { "pointer": "/data/balance" },
+      "code": 202,
+      "title": "Couldn't register call",
+      "detail": "..."
+    }
+ ]
+}
+```
+
 
 ## Autenticación
 
