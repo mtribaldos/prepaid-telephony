@@ -1,5 +1,4 @@
-# prepaid-telephony
-API de prepago de telefonía
+# Sistema de telefonía de prepago
 
 
 ## Uso del API para módulo de telefonía de prepago
@@ -14,9 +13,7 @@ Se corresponde con el instante (3) descrito en el cronograma.
 GET /phones/?number=961992899 HTTP/1.1
 ```
 
-Se obtiene la información sobre la **disponibilidad del propio número de teléfono** (comprobación de validez). En el ejemplo se verifica la existencia de al menos un teléfono registrado con el número 961992899. En la llamada se selecciona solo un subconjunto de campos a devolver.
-
-No es necesario usar el resultado de la consulta, más allá de la verificación del código HTTP devuelto.
+Se obtiene la información sobre la **disponibilidad del propio número de teléfono** (comprobación de validez). En el ejemplo se verifica la existencia de al menos un teléfono registrado con el número 961992899. 
 
 Respuesta: *OK*
 ```http
