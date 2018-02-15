@@ -345,9 +345,9 @@ Content-Type: application/json
       "src_number": "961992899",
       "dst_number": "962331295",
       "duration": 2123,
-      "billed_duration": 2120,
+      "billed_duration": 2110,
       "phone_rate": 3,
-      "amount": 2.6,
+      "amount": 3.0,
       "status": "answered"
   }
 }
