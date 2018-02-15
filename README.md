@@ -259,7 +259,7 @@ POST /payment-objects/2398012/operations/ HTTP/1.1
 { 
   "data": {
     "type": "charge"
-    "amount": 12.20
+    "amount": 2.6
   }
 }
 ```
@@ -280,7 +280,7 @@ Content-Type: application/json
   "data": {
       "id": "8293121",
       "type": "charge",
-      "amount": 12.20,
+      "amount": 3.0,
       "time": "2018-01-06T11:57:50Z",
       ...
   }
