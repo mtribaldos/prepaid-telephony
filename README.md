@@ -156,7 +156,6 @@ Content-Type: application/json
       "setup_fare": 0.18,
       "per_minute_fare": 0.05,
       "rule": "^96[0-9]{7}$",
-      "sequence": 1,
       "enabled": true,
       "published": true
     }
@@ -341,12 +340,12 @@ Content-Type: application/json
 {
   "data": {
       "time": "2018-01-06T11:57:50Z",
-      "phone": "3",
+      "phone": "/phones/3",
       "src_number": "961992899",
       "dst_number": "962331295",
       "duration": 2123,
       "billed_duration": 2110,
-      "phone_rate": 3,
+      "phone_rate": "/phone-rates/3",
       "amount": 3.0,
       "status": "answered"
   }
